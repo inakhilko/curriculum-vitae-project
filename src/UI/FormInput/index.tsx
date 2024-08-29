@@ -1,6 +1,5 @@
 import { TextField, TextFieldProps } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
-import './FormInput.styles.scss';
 
 interface FormInputProps extends TextFieldProps {
   label?: string;

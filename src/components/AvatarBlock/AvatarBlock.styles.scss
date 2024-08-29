@@ -1,0 +1,11 @@
+.avatar-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: color .3s;
+
+  &:hover{
+    color: #ce0000;
+  }
+}

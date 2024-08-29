@@ -23,16 +23,14 @@ function AuthorizationPage() {
   return (
     <div className="auth-page">
       <TabContext value={value}>
-        <div className="auth-page__tabs">
-          <TabList
-            onChange={handleChange}
-            aria-label="authorization tabs"
-            centered
-          >
-            <Tab label="Login" value={'login'} />
-            <Tab label="Sign Up" value={'signup'} />
-          </TabList>
-        </div>
+        <TabList
+          onChange={handleChange}
+          aria-label="authorization tabs"
+          centered
+        >
+          <Tab label="Login" value={'login'} />
+          <Tab label="Sign Up" value={'signup'} />
+        </TabList>
         <Outlet />
       </TabContext>
     </div>

@@ -1,11 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
 import { useQuery, useReactiveVar } from '@apollo/client';
-import { ThemeProvider } from '@mui/material';
-import { lightTheme } from './theme/theme.ts';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { darkTheme, lightTheme } from './theme/theme.ts';
 import PublicRouter from './router/PublicRouter.tsx';
 import PrivateRouter from './router/PrivateRouter.tsx';
-import { isAuthenticatedVar } from './apollo/reactiveVars.ts';
+import { isAuthenticatedVar, theme } from './apollo/reactiveVars.ts';
 import { USER } from './apollo/queries/queries.ts';
+import useSystemMode from './hooks/useMode.ts';
 import Loader from './UI/Loader';
 import './App.scss';
 
@@ -22,9 +23,16 @@ function App() {
     isAuthenticatedVar(true);
   }
 
+  const systemMode = useSystemMode();
+
+  const currentTheme = useReactiveVar(theme);
+
+  const selectedTheme = currentTheme === 'system' ? systemMode : currentTheme;
+
   return (
     <>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
+        <CssBaseline />
         <BrowserRouter>
           {loading ? (
             <Loader />

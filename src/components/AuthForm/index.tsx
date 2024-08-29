@@ -42,6 +42,7 @@ function AuthForm({
             variant="contained"
             type="submit"
             className="auth-form__button"
+            sx={{ borderRadius: 0 }}
           >
             {buttonText}
           </Button>
