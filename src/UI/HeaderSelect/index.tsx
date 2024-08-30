@@ -1,22 +1,29 @@
 import { ReactNode } from 'react';
-import { ReactiveVar, useReactiveVar } from '@apollo/client';
-import { InputAdornment, MenuItem, Select, ThemeProvider } from '@mui/material';
+import {
+  InputAdornment,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  ThemeProvider,
+} from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderSelectProps {
   menuItemsList: string[];
   startAdornment: ReactNode;
-  reactVar: ReactiveVar<unknown>;
+  value: string;
+  onChange: (event: SelectChangeEvent) => void;
+  nameSpace: string;
 }
 
 function HeaderSelect({
   menuItemsList,
   startAdornment,
-  reactVar,
+  value,
+  onChange,
+  nameSpace,
 }: HeaderSelectProps) {
-  const value = useReactiveVar(reactVar);
-  const onChange = (event) => {
-    reactVar(event.target.value);
-  };
+  const { t } = useTranslation();
 
   return (
     <ThemeProvider
@@ -44,9 +51,9 @@ function HeaderSelect({
           <InputAdornment position="start">{startAdornment}</InputAdornment>
         }
       >
-        {menuItemsList.map((item) => (
-          <MenuItem value={item} key={item}>
-            {item}
+        {menuItemsList.map((value) => (
+          <MenuItem value={value} key={value}>
+            {t(value, { ns: nameSpace })}
           </MenuItem>
         ))}
       </Select>

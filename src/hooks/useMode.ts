@@ -6,17 +6,14 @@ const useSystemMode = () => {
   useEffect(() => {
     const matchMedia = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Обновляем тему в зависимости от начальных настроек
     setIsDarkMode(matchMedia.matches);
 
-    // Устанавливаем слушатель изменений
     const handleChange = (e) => {
       setIsDarkMode(e.matches);
     };
 
     matchMedia.addEventListener('change', handleChange);
 
-    // Очищаем слушатель при размонтировании компонента
     return () => matchMedia.removeEventListener('change', handleChange);
   }, []);
 

@@ -1,6 +1,7 @@
 import * as ReactRouter from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import type { AuthInput, AuthResult } from 'cv-graphql';
+import { useTranslation } from 'react-i18next';
 import { TabPanel } from '@mui/lab';
 import { isAuthenticatedVar } from '../../apollo/reactiveVars.ts';
 import { SIGNUP } from '../../apollo/mutations/auth.ts';
@@ -14,6 +15,8 @@ function SignUpForm() {
   );
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const onSubmit = async (formData) => {
     const { data } = await signup({
@@ -36,12 +39,12 @@ function SignUpForm() {
     <>
       <TabPanel value="signup">
         <AuthForm
-          heading="Register now"
-          description="Hello again. Sign up to continue"
-          additionalLinkText="I have an account"
+          heading={t('heading', { ns: 'signUpForm' })}
+          description={t('description', { ns: 'signUpForm' })}
+          additionalLinkText={t('additionalLink', { ns: 'signUpForm' })}
           additionalLinkPath="/auth/login"
-          buttonText="Sign Up"
           onSubmit={onSubmit}
+          buttonText={t('signup')}
         />
       </TabPanel>
     </>

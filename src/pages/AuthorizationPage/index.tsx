@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import * as ReactRouter from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Tab } from '@mui/material';
 import { TabList, TabContext } from '@mui/lab';
 import './AuthorizationPage.styles.scss';
@@ -15,6 +16,8 @@ function AuthorizationPage() {
   );
   const navigate = useNavigate();
 
+  const { t } = useTranslation();
+
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
     navigate(`/auth/${newValue}`, { replace: true });
@@ -28,8 +31,8 @@ function AuthorizationPage() {
           aria-label="authorization tabs"
           centered
         >
-          <Tab label="Login" value={'login'} />
-          <Tab label="Sign Up" value={'signup'} />
+          <Tab label={t('login')} value={'login'} />
+          <Tab label={t('signup')} value={'signup'} />
         </TabList>
         <Outlet />
       </TabContext>

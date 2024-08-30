@@ -16,15 +16,18 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { isAuthenticatedVar } from '../../apollo/reactiveVars.ts';
 import { PROFILE } from '../../apollo/queries/user.ts';
 import './AvatarBlock.styles.scss';
+import { useTranslation } from 'react-i18next';
 
 const { useNavigate } = ReactRouter;
 
 function AvatarBlock() {
-  const { data } = useQuery(PROFILE, {
+  const { data, onCompleted } = useQuery(PROFILE, {
     variables: { userId: localStorage.getItem('cvp_user_id') },
   });
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = !!anchorEl;
@@ -61,7 +64,7 @@ function AvatarBlock() {
         onClick={handleClick}
       >
         <Typography sx={{ textTransform: 'capitalize' }}>
-          {data?.profile.full_name ?? 'User'}
+          {data?.profile.full_name ?? t('user')}
         </Typography>
         {data?.profile.avatar ? (
           <Avatar src={data.profile.avatar} />
@@ -80,19 +83,16 @@ function AvatarBlock() {
       >
         <MenuItem onClick={onProfileClick}>
           <ListItemIcon>
-            <AccountCircleIcon
-              fontSize="small"
-              sx={{ color: 'text.primary' }}
-            />
+            <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Profile</ListItemText>
+          <ListItemText>{t('profile')}</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={onLogoutClick}>
           <ListItemIcon>
-            <LogoutIcon fontSize="small" sx={{ color: 'text.primary' }} />
+            <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Log out</ListItemText>
+          <ListItemText>{t('logout')}</ListItemText>
         </MenuItem>
       </Menu>
     </>

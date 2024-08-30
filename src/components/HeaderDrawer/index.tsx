@@ -7,8 +7,12 @@ import {
   List,
   ListItem,
   ListItemButton,
-  // ListItemText,
+  ListItemText,
+  ListItemIcon,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { drawerBottomLinks, drawerTopLinks } from './variables.tsx';
 
 function HeaderDrawer() {
   const [open, setOpen] = useState(false);
@@ -17,33 +21,33 @@ function HeaderDrawer() {
     setOpen(newOpen);
   };
 
+  const { t } = useTranslation();
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {['Сотрудники', 'Проекты', 'Резюме'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              {text}
-              {/*<ListItemIcon>*/}
-              {/*{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}*/}
-              {/*</ListItemIcon>*/}
-              {/*<ListItemText primary={text} />*/}
-            </ListItemButton>
-          </ListItem>
+        {drawerTopLinks.map(({ name, icon }) => (
+          <Link to={`/${name}`} key={name}>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ color: 'text.primary' }}>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={t(name)} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              {text}
-              {/*<ListItemIcon>*/}
-              {/*{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}*/}
-              {/*</ListItemIcon>*/}
-              {/*<ListItemText primary={text} />*/}
-            </ListItemButton>
-          </ListItem>
+        {drawerBottomLinks.map(({ name, icon }) => (
+          <Link to={`/${name}`} key={name}>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ color: 'text.primary' }}>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={t(name)} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </Box>

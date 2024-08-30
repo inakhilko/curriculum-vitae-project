@@ -52,6 +52,13 @@ export const globalTheme = createTheme({
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          transition: 'background-color .3s',
+        },
+      },
+    },
   },
 });
 
@@ -95,6 +102,23 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           transition: 'background-color .3s',
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          },
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: 'rgba(0, 0, 0, 0.54)',
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          ...globalTheme.components?.MuiMenuItem?.styleOverrides?.root,
           '&:hover': {
             backgroundColor: 'rgba(0, 0, 0, 0.04)',
           },
@@ -149,10 +173,16 @@ export const darkTheme = createTheme({
         root: {
           ...globalTheme.components?.MuiIconButton?.styleOverrides?.root,
           color: 'rgba(255, 255, 255, 0.7)',
-          // color: 'rgba(255,255,255,0.23)',
           '&:hover': {
             backgroundColor: 'rgba(255,255,255,0.23)',
           },
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: 'rgba(255, 255, 255, 0.7)',
         },
       },
     },
@@ -177,6 +207,16 @@ export const darkTheme = createTheme({
             '-webkit-box-shadow': '0 0 0 1000px rgb(77,77,77) inset',
             boxShadow: '0 0 0 1000px rgb(77,77,77) inset',
             borderRadius: 0,
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          ...globalTheme.components?.MuiMenuItem?.styleOverrides?.root,
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.15)',
           },
         },
       },

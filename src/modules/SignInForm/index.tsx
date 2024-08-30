@@ -1,11 +1,12 @@
 import * as ReactRouter from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import type { AuthInput, AuthResult } from 'cv-graphql';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import { TabPanel } from '@mui/lab';
 import AuthForm from '../../components/AuthForm';
 import { LOGIN } from '../../apollo/queries/queries.ts';
 import { isAuthenticatedVar } from '../../apollo/reactiveVars.ts';
-import { toast } from 'react-toastify';
 
 const { useNavigate } = ReactRouter;
 
@@ -15,6 +16,8 @@ function SignInForm() {
   );
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const onSubmit = async (formData) => {
     const { data, error } = await signin({
@@ -39,12 +42,12 @@ function SignInForm() {
   return (
     <TabPanel value="login">
       <AuthForm
-        heading="Welcome back!"
-        description="Hello again! Sign in to continue"
-        additionalLinkText="I don't have an account"
+        heading={t('heading', { ns: 'logInForm' })}
+        description={t('description', { ns: 'logInForm' })}
+        additionalLinkText={t('additionalLink', { ns: 'logInForm' })}
         additionalLinkPath="/auth/signup"
         onSubmit={onSubmit}
-        buttonText="Log In"
+        buttonText={t('login')}
       />
     </TabPanel>
   );
