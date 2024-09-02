@@ -1,7 +1,10 @@
 import { useQuery } from '@apollo/client';
 import * as ReactRouter from 'react-router-dom';
-import { USERS } from '../../apollo/queries/queries.ts';
+import { USER, USERS } from '../../apollo/queries/queries.ts';
 import Header from '../../components/Header';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import PrivatePageTemplate from '../../modules/PrivatePageTemplate';
+import { useLocation, useParams } from 'react-router-dom';
 
 const { useNavigate } = ReactRouter;
 
@@ -12,8 +15,9 @@ function UsersPage() {
 
   return (
     <>
-      <Header />
-      <div>Users page</div>
+      <PrivatePageTemplate>
+        <div>Users page</div>
+      </PrivatePageTemplate>
     </>
   );
 }
