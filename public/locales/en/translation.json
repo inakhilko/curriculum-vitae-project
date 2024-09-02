@@ -1,0 +1,16 @@
+{
+  "login": "Log In",
+  "signup": "Sign Up",
+  "email": "Email",
+  "password": "Password",
+  "user": "User",
+  "logout": "Log Out",
+  "profile": "Profile",
+  "employees": "Employees",
+  "projects": "Projects",
+  "cvs": "CVs",
+  "departments": "Departments",
+  "positions": "Positions",
+  "skills": "Skills",
+  "languages": "Languages"
+}
