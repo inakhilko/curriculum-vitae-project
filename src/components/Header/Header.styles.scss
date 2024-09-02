@@ -1,0 +1,10 @@
+.header-container {
+  justify-content: space-between;
+  padding: 10px 15px;
+
+  &__block {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+}

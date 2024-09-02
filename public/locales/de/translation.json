@@ -1,0 +1,16 @@
+{
+  "login": "Log In",
+  "signup": "Sign Up",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "user": "Benutzer",
+  "logout": "Log Out",
+  "profile": "Profil",
+  "employees": "Mitarbeiter",
+  "projects": "Projekte",
+  "cvs": "Lebensläufe",
+  "departments": "Abteilungen",
+  "positions": "Positionen",
+  "skills": "Fähigkeiten",
+  "languages": "Sprachen"
+}

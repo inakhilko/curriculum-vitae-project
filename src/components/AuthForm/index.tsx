@@ -1,6 +1,7 @@
 import * as ReactRouter from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { AuthInput } from 'cv-graphql';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
 import { useTabContext } from '@mui/lab';
 import { ToastContainer } from 'react-toastify';
@@ -28,20 +29,29 @@ function AuthForm({
   buttonText,
   onSubmit,
 }: FormProps) {
+  const { t } = useTranslation();
+
   const methods = useForm();
+
   const { setValue } = useTabContext();
+
   return (
     <>
       <h2 className="auth__heading">{heading}</h2>
       <span className="auth__description">{description}</span>
       <FormProvider {...methods}>
         <form className="auth-form" onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormInput name="email" label="E-Mail" type="email" />
-          <PasswordFormInput name="password" label="Password" type="password" />
+          <FormInput name="email" label={t('email')} type="email" />
+          <PasswordFormInput
+            name="password"
+            label={t('password')}
+            type="password"
+          />
           <Button
             variant="contained"
             type="submit"
             className="auth-form__button"
+            sx={{ borderRadius: 0 }}
           >
             {buttonText}
           </Button>
