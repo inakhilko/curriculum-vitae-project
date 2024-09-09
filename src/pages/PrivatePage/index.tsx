@@ -1,18 +1,17 @@
+import * as Router from 'react-router-dom';
 import Header from '../../components/Header';
 import PrivateBreadcrumbs from '../../components/Breadcrumbs';
-import './PrivatePageTemplate.styles.scss';
-import { ReactNode } from 'react';
+import './PrivatePage.styles.scss';
 
-interface PrivatePageTemplateProps {
-  children: ReactNode;
-}
-function PrivatePageTemplate({ children }: PrivatePageTemplateProps) {
+const { Outlet } = Router;
+
+function PrivatePageTemplate() {
   return (
     <>
       <Header />
       <div className="page-container">
         <PrivateBreadcrumbs />
-        {children}
+        <Outlet />
       </div>
     </>
   );

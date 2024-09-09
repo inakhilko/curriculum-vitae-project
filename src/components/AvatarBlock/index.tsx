@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -17,6 +18,7 @@ import { isAuthenticatedVar } from '../../apollo/reactiveVars.ts';
 import { PROFILE } from '../../apollo/queries/user.ts';
 import './AvatarBlock.styles.scss';
 import { useTranslation } from 'react-i18next';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const { useNavigate } = ReactRouter;
 
@@ -24,6 +26,8 @@ function AvatarBlock() {
   const { data, onCompleted } = useQuery(PROFILE, {
     variables: { userId: localStorage.getItem('cvp_user_id') },
   });
+
+  const isMobile = useMediaQuery('(max-width: 600px)');
 
   const navigate = useNavigate();
 
@@ -86,6 +90,17 @@ function AvatarBlock() {
             <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>{t('profile')}</ListItemText>
+        </MenuItem>
+        <MenuItem
+          onClick={onProfileClick}
+          sx={{
+            display: !isMobile ? 'none' : 'default',
+          }}
+        >
+          <ListItemIcon>
+            <SettingsOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>{t('settings')}</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={onLogoutClick}>

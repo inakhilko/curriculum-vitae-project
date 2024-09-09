@@ -59,6 +59,16 @@ export const globalTheme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          padding: 10,
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+        },
+      },
+    },
   },
 });
 

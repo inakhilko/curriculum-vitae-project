@@ -11,17 +11,14 @@ import Loader from './UI/Loader';
 import './App.scss';
 
 function App() {
-  const { data, loading } = useQuery(USER, {
+  const { loading } = useQuery(USER, {
     variables: {
       userId: localStorage.getItem('cvp_user_id'),
     },
+    onCompleted: () => isAuthenticatedVar(true),
   });
 
   const isAuthenticated = useReactiveVar(isAuthenticatedVar);
-
-  if (data && data.user) {
-    isAuthenticatedVar(true);
-  }
 
   const systemMode = useSystemMode();
 

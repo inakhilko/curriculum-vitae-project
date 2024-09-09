@@ -6,7 +6,6 @@ import { useQuery } from '@apollo/client';
 import { USER } from '../../apollo/queries/queries.ts';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
-import './Breadcrumbs.styles.scss';
 import StyledLink from '../../UI/StyledLink';
 
 function PrivateBreadcrumbs() {
@@ -21,7 +20,17 @@ function PrivateBreadcrumbs() {
   const { t } = useTranslation();
 
   return (
-    <Breadcrumbs separator="›" aria-label="breadcrumb">
+    <Breadcrumbs
+      separator="›"
+      aria-label="breadcrumb"
+      sx={{
+        mb: 2,
+        position: 'sticky',
+        top: '64px',
+        backgroundColor: 'background.default',
+        zIndex: 1,
+      }}
+    >
       <StyledLink path="/">
         <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
         {t('home')}
@@ -47,6 +56,7 @@ function PrivateBreadcrumbs() {
                 display: 'flex',
                 alignItems: 'center',
               }}
+              key={item}
             >
               {content}
             </Typography>
@@ -56,6 +66,7 @@ function PrivateBreadcrumbs() {
           <StyledLink
             path={`/${item}`}
             isRed={item === userId || item === cvId}
+            key={item}
           >
             {content}
           </StyledLink>
