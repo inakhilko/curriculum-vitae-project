@@ -16,7 +16,9 @@
   "departments": "Abteilungen",
   "positions_one": "Position",
   "positions": "Positionen",
+  "skills_one": "Fähigkeit",
   "skills": "Fähigkeiten",
+  "languages_one": "Sprache",
   "languages": "Sprachen",
   "search": "Suche",
   "create": "Erstellen",
@@ -31,5 +33,15 @@
   "tillNow": "Bis heute",
   "description": "Beschreibung",
   "nativeName": "Einheimischer Name",
-  "iso2": "ISO2"
+  "iso2": "ISO2",
+  "add": "Hinzufügen",
+  "update": "Aktualisieren",
+  "mastery": "Fertigkeitbeherrschung",
+  "cancel": "Abbrechen",
+  "confirm": "Bestätigen",
+  "proficiency": "Fertigkeit",
+  "nothingFound": "Nichts gefunden",
+  "delete": "löschen",
+  "education": "Bildung",
+  "other": "Andere"
 }

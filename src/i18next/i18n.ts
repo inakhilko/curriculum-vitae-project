@@ -11,7 +11,14 @@ i18n
     debug: true,
     fallbackLng: 'en',
     supportedLngs: ['en', 'ru', 'de'],
-    ns: ['translation', 'signUpForm', 'logInForm', 'themes', 'langs'],
+    ns: [
+      'translation',
+      'signUpForm',
+      'logInForm',
+      'themes',
+      'langs',
+      'userPage',
+    ],
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },

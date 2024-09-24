@@ -30,7 +30,7 @@ function Header() {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar className="header-container">
+        <Toolbar sx={{ justifyContent: 'space-between', padding: '10px 15px' }}>
           <HeaderDrawer />
           <div className="header-container__block">
             {!isMobile && (
@@ -55,7 +55,7 @@ function Header() {
           </div>
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      <Toolbar sx={{ minHeight: '72px' }} />
       <ScrollTop />
     </>
   );

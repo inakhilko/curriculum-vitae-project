@@ -41,7 +41,12 @@ function AuthForm({
       <span className="auth__description">{description}</span>
       <FormProvider {...methods}>
         <form className="auth-form" onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormInput name="email" label={t('email')} type="email" />
+          <FormInput
+            name="email"
+            label={t('email')}
+            type="email"
+            required={true}
+          />
           <PasswordFormInput
             name="password"
             label={t('password')}

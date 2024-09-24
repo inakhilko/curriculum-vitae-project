@@ -1,13 +1,23 @@
-import { ChangeEventHandler, memo } from 'react';
-import { Box } from '@mui/material';
+import { ChangeEventHandler, memo, ReactNode } from 'react';
+import { Box, BoxProps, TableProps } from '@mui/material';
 import SearchInput from '../../UI/SearchInput';
+import { useParams } from 'react-router-dom';
 
-interface TableBlockProps {
+interface TableBlockProps extends BoxProps {
   inputValue: string;
   inputHandler: ChangeEventHandler<HTMLInputElement>;
+  addButton?: ReactNode;
+  blockTop: string;
 }
 
-function TableSearchBlock({ inputValue, inputHandler }: TableBlockProps) {
+function TableSearchBlock({
+  inputValue,
+  inputHandler,
+  addButton,
+  blockTop,
+}: TableBlockProps) {
+  const { userId } = useParams();
+  const isMyProfile = userId === localStorage.getItem('cvp_user_id');
   return (
     <Box
       component="div"
@@ -17,12 +27,13 @@ function TableSearchBlock({ inputValue, inputHandler }: TableBlockProps) {
         justifyContent: 'space-between',
         marginBottom: '30px',
         position: 'sticky',
-        top: '88px',
+        top: blockTop ? blockTop : '96px',
         zIndex: 1,
         backgroundColor: 'background.default',
       }}
     >
       <SearchInput value={inputValue} onChange={inputHandler} />
+      {isMyProfile && addButton}
     </Box>
   );
 }
