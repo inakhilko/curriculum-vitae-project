@@ -1,0 +1,15 @@
+.upload-image {
+    display: flex;
+  flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  cursor: pointer;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px 20px;
+  width: 100%;
+}

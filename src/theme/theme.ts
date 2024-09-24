@@ -9,6 +9,16 @@ export const globalTheme = createTheme({
     },
   },
   components: {
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          minHeight: '72px',
+          '@media (min-width: 600px)': {
+            minHeight: '72px',
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
@@ -103,7 +113,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         ...globalTheme.components?.MuiOutlinedInput?.styleOverrides,
         input: {
-          '-webkit-box-shadow': '0 0 0 1000px #F5F5F7FF inset',
+          WebkitBoxShadow: '0 0 0 1000px #F5F5F7FF inset',
           boxShadow: '0 0 0 1000px #F5F5F7FF inset',
         },
       },
@@ -165,9 +175,7 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           ...globalTheme.components?.MuiTabs?.styleOverrides?.root,
-          backgroundColor: '#181818',
-          backgroundImage:
-            'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
         },
       },
     },
@@ -214,7 +222,7 @@ export const darkTheme = createTheme({
         ...globalTheme.components?.MuiOutlinedInput?.styleOverrides,
         input: {
           '&:-webkit-autofill': {
-            '-webkit-box-shadow': '0 0 0 1000px rgb(77,77,77) inset',
+            WebkitBoxShadow: '0 0 0 1000px rgb(77,77,77) inset',
             boxShadow: '0 0 0 1000px rgb(77,77,77) inset',
             borderRadius: 0,
           },

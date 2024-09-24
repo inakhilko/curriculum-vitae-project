@@ -62,7 +62,7 @@ function PasswordFormInput({ label, name }: any) {
                   ),
                 }}
                 error={!!errors[name]}
-                helperText={errors[name]?.message}
+                helpertext={errors[name]?.message}
               />
             </FormControl>
           </>
