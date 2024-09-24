@@ -95,7 +95,6 @@ function SkillCategoryBlock({
         <List
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
             flexWrap: 'wrap',
           }}
         >
