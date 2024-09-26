@@ -43,5 +43,9 @@
   "nothingFound": "Nothing found",
   "delete": "Delete",
   "education": "Education",
-  "other": "Other"
+  "other": "Other",
+  "details": "Details",
+  "preview": "Preview",
+  "export": "Export",
+  "deleteConfirm": "Are you sure you want to delete this item?"
 }

@@ -6,10 +6,7 @@ import { Avatar, Box, Button, Container, Typography } from '@mui/material';
 import { Profile, UpdateProfileInput, User, UpdateUserInput } from 'cv-graphql';
 import { USER } from '../../apollo/queries/queries.ts';
 import { DEPARTMENTS, POSITIONS, PROFILE } from '../../apollo/queries/user.ts';
-import {
-  UPDATE_PROFILE,
-  UPDATE_USER,
-} from '../../apollo/mutations/userProfile.ts';
+import { UPDATE_PROFILE, UPDATE_USER } from '../../apollo/mutations/user.ts';
 import UploadAvatarBlock from '../../components/UploadAvatarBlock';
 import FormInput from '../../UI/FormInput';
 import FormSelect from '../../UI/FormSelect';
@@ -125,7 +122,10 @@ function ProfileContent() {
         >{`${t('memberSince', { ns: 'userPage' })} ${new Date(Number(userData?.user.created_at)).toLocaleString()}`}</Typography>
       </Box>
       <FormProvider {...methods}>
-        <form className="form" onSubmit={methods.handleSubmit(onSubmit)}>
+        <form
+          className="profile-form"
+          onSubmit={methods.handleSubmit(onSubmit)}
+        >
           <FormInput
             name="firstName"
             label={t('firstName')}

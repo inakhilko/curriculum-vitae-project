@@ -4,33 +4,39 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery } from '@apollo/client';
 import { Container } from '@mui/material';
 import {
+  CV,
   SKILL_CATEGORIES,
   SKILLS,
   USER,
 } from '../../apollo/queries/queries.ts';
 import {
-  ADD_PROFILE_SKILL,
-  DELETE_PROFILE_SKILL,
-  UPDATE_PROFILE_SKILL,
-} from '../../apollo/mutations/user.ts';
-import { skillsFormFields } from './variables.ts';
+  ADD_CV_SKILL,
+  DELETE_CV_SKILL,
+  UPDATE_CV_SKILL,
+} from '../../apollo/mutations/cv.ts';
+import { skillsFormFields } from '../../variables/formsFieldsConfigs.ts';
 import { filterArrayWithObjects } from '../../helpers/skillsFilterHelpers.ts';
+import AddAndDeleteBlock from '../../components/AddAndDeleteBlock';
 import SkillCategoryBlock, {
   SkillsFormValues,
 } from '../../components/SkillCategoryBlock';
-import AddAndDeleteBlock from '../../components/AddAndDeleteBlock';
 import Loader from '../../UI/Loader';
-import { PROFILE } from '../../apollo/queries/user.ts';
 
-function Skills() {
+function CVSSkills() {
   const { data: skillCategories, loading } = useQuery(SKILL_CATEGORIES);
   const { data: skills } = useQuery(SKILLS);
 
-  const { userId } = useParams();
+  const { cvId } = useParams();
+
+  const { data: cvData } = useQuery(CV, {
+    variables: {
+      cvId,
+    },
+  });
 
   const { data: userData } = useQuery(USER, {
     variables: {
-      userId,
+      userId: localStorage.getItem('cvp_user_id'),
     },
   });
 
@@ -40,32 +46,32 @@ function Skills() {
 
   const transformToMutationData = (formData) => ({
     skill: {
-      userId: userId,
+      cvId: cvId,
       name: formData.skill,
       categoryId: formData.category,
       mastery: formData.mastery,
     },
   });
 
-  const [deleteSkill] = useMutation(DELETE_PROFILE_SKILL);
+  const [deleteSkill] = useMutation(DELETE_CV_SKILL);
 
   const onSkillDeletion = (event) => {
     deleteSkill({
       variables: {
         skill: {
-          userId,
+          cvId,
           name: event.currentTarget.id,
         },
       },
-      refetchQueries: [USER, PROFILE],
+      refetchQueries: [USER, CV],
     });
   };
 
-  const isMySkillsPage = userId === localStorage.getItem('cvp_user_id');
+  const isMyCV = userData?.user.cvs.find(({ id }) => id === cvId);
 
   useEffect(() => {
-    userData?.user.profile.skills.length === 0 && setIsDeletionProcess(false);
-  }, [userData, setIsDeletionProcess]);
+    cvData?.cv.skills.length === 0 && setIsDeletionProcess(false);
+  }, [cvData, setIsDeletionProcess]);
 
   return (
     <Container
@@ -80,22 +86,19 @@ function Skills() {
         maxWidth: '1200px',
       }}
     >
-      {isMySkillsPage && (
+      {isMyCV && (
         <AddAndDeleteBlock<SkillsFormValues>
           isDeletionProcess={isDeletionProcess}
           setIsDeletionProcess={setIsDeletionProcess}
           transformToMutationData={transformToMutationData}
           addedWord={t('skills', { count: 1 })}
-          submitMutation={ADD_PROFILE_SKILL}
-          defaultFormValues={{
-            skill: '',
-            category: '',
-            mastery: '',
-          }}
+          submitMutation={ADD_CV_SKILL}
+          defaultFormValues={{ skill: '', category: '', mastery: '' }}
           formFields={skillsFormFields}
-          isNoToDelete={userData?.user.profile.skills.length > 0}
+          isNoToDelete={cvData?.cv.skills.length > 0}
         />
       )}
+
       {loading ? (
         <Loader />
       ) : (
@@ -107,18 +110,18 @@ function Skills() {
             <SkillCategoryBlock
               title={name}
               skills={filterArrayWithObjects(
-                userData?.user.profile.skills,
+                cvData?.cv.skills,
                 'categoryId',
                 id
               )}
               isDeletionProcess={isDeletionProcess}
-              isAuthorizedToEdit={isMySkillsPage}
+              isAuthorizedToEdit={isMyCV}
               onSkillDeletion={onSkillDeletion}
               buttonWithModalFormProps={{
                 transformToMutationData,
                 modalTitle: `${t('update')} ${t('skills', { count: 1 })}`,
                 readOnlyFields: ['skill', 'category'],
-                submitMutation: UPDATE_PROFILE_SKILL,
+                submitMutation: UPDATE_CV_SKILL,
               }}
             />
           );
@@ -128,4 +131,4 @@ function Skills() {
   );
 }
 
-export default Skills;
+export default CVSSkills;

@@ -10,7 +10,7 @@ import {
   ADD_PROFILE_LANGUAGE,
   DELETE_PROFILE_LANGUAGE,
   UPDATE_PROFILE_LANGUAGE,
-} from '../../apollo/mutations/userProfile.ts';
+} from '../../apollo/mutations/user.ts';
 import { languagesFormFields } from './variables.ts';
 import ButtonWithModalForm from '../../components/ButtonWithModalForm';
 import LanguageDataBlock from '../../components/LanguageDataBlock';

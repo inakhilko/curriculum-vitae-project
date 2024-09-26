@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { FieldValues, UseFormWatch } from 'react-hook-form';
 import { TFunction } from 'i18next';
+import { DocumentNode } from '@apollo/client';
 
 interface FormInputDataType {
   name: string;
@@ -14,7 +15,27 @@ export interface FormFieldDataType {
   Element: FC;
   getFullListData?: () => FormInputDataType[] | null | undefined;
   getFilteredListData?: (
-    currentUser: string
+    currentUser: string,
+    currentCv: string
   ) => FormInputDataType[] | null | undefined;
   getDependentValue?: (watchFunction: UseFormWatch<FieldValues>) => string;
+}
+
+export interface CVsFormValues {
+  name: string;
+  education: string;
+  description: string;
+}
+
+export interface ButtonWithModalFormProps<FormValues> {
+  defaultFormValues: FormValues;
+  formFields: FormFieldDataType[];
+  modalTitle: string;
+  submitMutation: DocumentNode;
+  createOpenButton: (
+    onClick: MouseEventHandler<HTMLButtonElement>
+  ) => JSX.Element;
+  transformToMutationData: (formData: FormValues) => { [key: string]: any };
+  isUpdate?: boolean;
+  readOnlyFields?: string[];
 }

@@ -5,15 +5,10 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { CVSFormFields } from './variables.ts';
 import { USER } from '../../apollo/queries/queries.ts';
-import { CREATE_CV } from '../../apollo/mutations/userProfile.ts';
+import { CREATE_CV } from '../../apollo/mutations/user.ts';
 import ButtonWithModalForm from '../../components/ButtonWithModalForm';
 import TableTemplate from '../../components/TableTemplate';
-
-interface CVsFormValues {
-  name: string;
-  education: string;
-  description: string;
-}
+import { CVsFormValues } from '../../types/formsTypes.ts';
 
 function CVs() {
   const { userId } = useParams();
@@ -78,6 +73,7 @@ function CVs() {
           modalTitle={`${t('add')} ${t('cvs', { count: 1 })}`}
           submitMutation={CREATE_CV}
           formFields={CVSFormFields}
+          isUpdate={true}
           defaultFormValues={{
             name: '',
             education: '',
@@ -93,7 +89,7 @@ function CVs() {
       ) => {
         if (columnId === 'more') {
           return (
-            <IconButton onClick={() => onClick(`${data['id']}`)}>
+            <IconButton onClick={() => onClick(`/cvs/${data['id']}`)}>
               <ArrowForwardIosOutlinedIcon
                 sx={{ width: '1rem', height: '1rem' }}
               />

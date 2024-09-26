@@ -7,15 +7,38 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useQuery } from '@apollo/client';
 import { PROFILE } from '../../apollo/queries/user.ts';
 import StyledLink from '../../UI/StyledLink';
+import { CV } from '../../apollo/queries/queries.ts';
 
 function PrivateBreadcrumbs() {
   const { pathname } = useLocation();
   const { userId, cvId } = useParams();
-  const { data } = useQuery(PROFILE, {
+
+  const { data: userProfile } = useQuery(PROFILE, {
     variables: {
       userId: userId,
     },
   });
+  const { data: cvData } = useQuery(CV, {
+    variables: {
+      cvId: cvId,
+    },
+  });
+
+  const getDynamicBreadcrumbValue = (item) => {
+    if (item === userId) {
+      return (
+        <>
+          <PersonIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+          {userProfile?.profile.full_name}
+        </>
+      );
+    }
+    if (item === cvId) {
+      return cvData?.cv.name;
+    }
+    return t(item === 'users' ? 'employees' : item);
+  };
+
   const breadcrumbs = pathname.split('/').filter((item) => item !== '');
   const { t } = useTranslation();
 
@@ -36,15 +59,7 @@ function PrivateBreadcrumbs() {
         {t('home')}
       </StyledLink>
       {breadcrumbs.map((item, index) => {
-        const content =
-          item === userId ? (
-            <>
-              <PersonIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-              {data?.profile.full_name}
-            </>
-          ) : (
-            t(item === 'users' ? 'employees' : item)
-          );
+        const content = getDynamicBreadcrumbValue(item);
         if (index === breadcrumbs.length - 1) {
           return (
             <Typography

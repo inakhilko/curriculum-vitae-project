@@ -1,38 +1,44 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import * as ReactRouter from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { TabContext } from '@mui/lab';
 import PrivatePageTabList from '../../components/PrivatePageTabList';
-import { employeePageTabList } from './variables.ts';
+import { cvsPageTabList } from './variables.ts';
 
 const { Outlet, useNavigate } = ReactRouter;
 
-function EmployeePage() {
-  const { userId } = useParams();
-  const { pathname } = useLocation();
+enum CVPageTabs {
+  details = 'details',
+  skills = 'skills',
+  preview = 'preview',
+}
 
-  const [value, setValue] = useState('profile');
+function CVPage() {
+  const { cvId } = useParams();
+
   const navigate = useNavigate();
 
-  const { t } = useTranslation();
+  const { pathname } = useLocation();
+
+  const [value, setValue] = useState(
+    CVPageTabs[pathname.split('/').at(-1)] || 'details'
+  );
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
-    navigate(`/users/${userId}/${newValue}`);
+    navigate(`/cvs/${cvId}/${newValue}`);
   };
 
   useEffect(() => {
-    setValue('profile');
-    navigate(`profile`);
-  }, [userId]);
+    navigate(value);
+  }, [cvId]);
 
   return (
     <>
       <TabContext value={value}>
         <PrivatePageTabList
           handleChange={handleChange}
-          tabData={employeePageTabList}
+          tabData={cvsPageTabList}
         />
         <Outlet />
       </TabContext>
@@ -40,4 +46,4 @@ function EmployeePage() {
   );
 }
 
-export default EmployeePage;
+export default CVPage;

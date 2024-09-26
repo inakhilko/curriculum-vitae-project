@@ -43,5 +43,9 @@
   "nothingFound": "Nichts gefunden",
   "delete": "löschen",
   "education": "Bildung",
-  "other": "Andere"
+  "other": "Andere",
+  "details": "Details",
+  "preview": "Vorschau",
+  "export": "Exportieren",
+  "deleteConfirm": "Sind Sie sicher, dass Sie dieses Element löschen möchten?"
 }

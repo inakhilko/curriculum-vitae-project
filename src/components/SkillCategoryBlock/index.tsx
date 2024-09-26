@@ -1,5 +1,4 @@
 import { MouseEventHandler } from 'react';
-import { useParams } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import {
@@ -14,12 +13,13 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import {
   DELETE_PROFILE_SKILL,
   UPDATE_PROFILE_SKILL,
-} from '../../apollo/mutations/userProfile.ts';
+} from '../../apollo/mutations/user.ts';
 import { USER } from '../../apollo/queries/queries.ts';
 import { PROFILE } from '../../apollo/queries/user.ts';
 import { skillsFormFields } from '../../modules/SkillsPageContent/variables.ts';
 import ButtonWithModalForm from '../ButtonWithModalForm';
 import SkillRange from '../../UI/SkillRange';
+import { ButtonWithModalFormProps } from '../../types/formsTypes.ts';
 
 enum SkillMastery {
   Novice = 20,
@@ -47,43 +47,20 @@ interface SkillCategoryBlockProps {
   title: string;
   skills: SkillsFormValues[];
   isDeletionProcess: boolean;
+  isAuthorizedToEdit: boolean;
+  buttonWithModalFormProps: Partial<ButtonWithModalFormProps<SkillsFormValues>>;
+  onSkillDeletion: MouseEventHandler<HTMLButtonElement>;
 }
 
 function SkillCategoryBlock({
   title,
   skills,
   isDeletionProcess,
+  isAuthorizedToEdit,
+  buttonWithModalFormProps,
+  onSkillDeletion,
 }: SkillCategoryBlockProps) {
-  const { userId } = useParams();
-
-  const [deleteSkill] = useMutation(DELETE_PROFILE_SKILL);
-
-  const isMyProfile = userId === localStorage.getItem('cvp_user_id');
-
-  const { t } = useTranslation();
-
-  const transformToMutationData = (formData) => ({
-    skill: {
-      userId: userId,
-      name: formData.skill,
-      categoryId: formData.category,
-      mastery: formData.mastery,
-    },
-  });
-
-  const onSkillDeletion = (event) => {
-    deleteSkill({
-      variables: {
-        skill: {
-          userId: userId,
-          name: event.currentTarget.id,
-        },
-      },
-      refetchQueries: [USER, PROFILE],
-    });
-  };
-
-  if (skills.length > 0) {
+  if (skills?.length > 0) {
     return (
       <Container sx={{ width: '100%' }}>
         <Typography
@@ -108,7 +85,7 @@ function SkillCategoryBlock({
                   postion: 'relative',
                 }}
               >
-                {isMyProfile ? (
+                {isAuthorizedToEdit ? (
                   <>
                     <ButtonWithModalForm<SkillsFormValues>
                       createOpenButton={(
@@ -139,17 +116,16 @@ function SkillCategoryBlock({
                           />
                         </Button>
                       )}
-                      modalTitle={`${t('update')} ${t('skills', { count: 1 })}`}
-                      transformToMutationData={transformToMutationData}
                       formFields={skillsFormFields}
-                      readOnlyFields={['skill', 'category']}
+                      // readOnlyFields={['skill', 'category']}
+
                       isUpdate={false}
-                      submitMutation={UPDATE_PROFILE_SKILL}
                       defaultFormValues={{
                         skill: name,
                         category: categoryId,
                         mastery: mastery,
                       }}
+                      {...buttonWithModalFormProps}
                     />
                     <IconButton
                       id={name}

@@ -4,10 +4,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { PROFILE } from '../../apollo/queries/user.ts';
 import { useParams } from 'react-router-dom';
 import { USER } from '../../apollo/queries/queries.ts';
-import {
-  DELETE_AVATAR,
-  UPLOAD_AVATAR,
-} from '../../apollo/mutations/userProfile.ts';
+import { DELETE_AVATAR, UPLOAD_AVATAR } from '../../apollo/mutations/user.ts';
 import { useEffect, useState } from 'react';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { useTranslation } from 'react-i18next';

@@ -154,3 +154,31 @@ export const LANGUAGES = gql`
     }
   }
 `;
+
+export const CV = gql`
+  query CV($cvId: ID!) {
+    cv(cvId: $cvId) {
+      id
+      name
+      education
+      description
+      user {
+        id
+        email
+        position_name
+        profile {
+          full_name
+        }
+      }
+      skills {
+        name
+        categoryId
+        mastery
+      }
+      languages {
+        name
+        proficiency
+      }
+    }
+  }
+`;

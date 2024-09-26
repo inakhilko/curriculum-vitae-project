@@ -1,6 +1,6 @@
 import { FormFieldDataType } from '../../types/formsTypes.ts';
 import FormSelect from '../../UI/FormSelect';
-import { ADD_PROFILE_LANGUAGE } from '../../apollo/mutations/userProfile.ts';
+import { ADD_PROFILE_LANGUAGE } from '../../apollo/mutations/user.ts';
 import { client } from '../../apollo/client.ts';
 import { LANGUAGES, USER } from '../../apollo/queries/queries.ts';
 
