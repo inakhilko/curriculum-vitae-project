@@ -53,7 +53,9 @@ function AvatarBlock() {
 
   const onProfileClick = () => {
     handleClose();
-    navigate('/profile', { replace: true });
+    navigate(`/users/${localStorage.getItem('cvp_user_id')}/profile`, {
+      replace: true,
+    });
   };
 
   return (
@@ -70,11 +72,7 @@ function AvatarBlock() {
         <Typography sx={{ textTransform: 'capitalize' }}>
           {data?.profile.full_name ?? t('user')}
         </Typography>
-        {data?.profile.avatar ? (
-          <Avatar src={data.profile.avatar} />
-        ) : (
-          <AccountCircleIcon fillOpacity={0.54} />
-        )}
+        <Avatar src={data?.profile.avatar} />
       </Button>
       <Menu
         id="basic-menu"
